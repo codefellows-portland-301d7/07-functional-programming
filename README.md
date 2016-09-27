@@ -1,6 +1,5 @@
 ![CF](https://i.imgur.com/7v5ASc8.png)  Lab 07: Functional Programming
 =======
-[![Build Status](https://travis-ci.org/codefellows-seattle-301d9/07-functional-programming.svg?branch=master)](https://travis-ci.org/codefellows-seattle-301d9/07-functional-programming) [![GitHub issues](https://img.shields.io/badge/Stuck%3F-Ask%20for%20Help!-orange.svg)](https://github.com/codefellows/seattle-301d7/issues/new)
 
 The concepts of functional programming have significantly shaped Computer Science from the early days.
 
