@@ -41,16 +41,16 @@ Article.fetchAll = function(nextFunction) {
         var eTag = xhr.getResponseHeader('eTag');
         if (!localStorage.eTag || eTag !== localStorage.eTag) {
           localStorage.eTag = eTag;
-          Article.getAll(); // TODO: pass 'nextFunction' into Article.getAll();
+          Article.getAll(nextFunction); // DONE: pass 'nextFunction' into Article.getAll();
         } else {
           Article.loadAll(JSON.parse(localStorage.hackerIpsum));
-          // TODO: Replace the following line with 'nextFunction' and invoke it!
-          Article.getAll();
+          // DONE: Replace the following line with 'nextFunction' and invoke it!
+          nextFunction();
         }
       }
     });
   } else {
-    Article.getAll(); // TODO: pass 'nextFunction' into getAll();
+    Article.getAll(nextFunction); // DONE: pass 'nextFunction' into getAll();
   }
 };
 
@@ -58,7 +58,8 @@ Article.getAll = function(nextFunction) {
   $.getJSON('/data/hackerIpsum.json', function(responseData) {
     Article.loadAll(responseData);
     localStorage.hackerIpsum = JSON.stringify(responseData);
-    // TODO: invoke nextFunction!
+    // DONE: invoke nextFunction!
+    nextFunction();
   });
 };
 
