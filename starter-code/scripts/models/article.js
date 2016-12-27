@@ -1,6 +1,7 @@
 // TODO: DONE// Wrap the entire contents of this file in an IIFE.
 // Pass in to the IIFE a module, upon which objects can be attached for later access.
-(function (module){
+(function(module){
+
   function Article (opts) {
     for (key in opts) {
       this[key] = opts[key];
@@ -64,40 +65,40 @@
     });
   };
 
-  /* TODO: Chain together a `map` and a `reduce` call to get a rough count of
+  /* TODO: DONE Chain together a `map` and a `reduce` call to get a rough count of
       all words in all articles. */
   Article.numWordsAll = function() {
     return Article.allArticles.map(function(article) {
         //DONE: Grab the word count from each article body.
       return article.body.match(/\w+/g).length;
     })
-    // TODO: complete this reduce to get a grand total word count
+    // TODO: DONE complete this reduce to get a grand total word count
     .reduce(function(acc, curr) {
       return acc + curr;
     }, 0);
   };
 
-  /* TODO: Chain together a `map` and a `reduce` call to
+  /* TODO: DONE Chain together a `map` and a `reduce` call to
             produce an array of *unique* author names. */
   Article.allAuthors = function() {
-    //return       TODO: map our collection
+    //return       TODO:  DONE map our collection
     return Article.allArticles.map(function(article){
-      //return    TODO: return just the author names
-      return article.author.match(/\w+/g);
+      //return    TODO: DONE return just the author names;
+      return article.author; //.match(/\w+/g);
     })
-
     /* TODO: DONE// For our `reduce` that we'll chain here -- since we are trying to
         return an array, we'll need to specify an accumulator type...
         What data type should this accumulator be and where is it placed? */
     .reduce(function(acc, curr){
       if (!acc.includes(curr)) {
-        return acc + curr;
+        acc.push(curr);
       }
+      return acc;
     }, []);
   };
 
   Article.numWordsByAuthor = function() {
-    /* TODO: Transform each author element into an object with 2 properties:
+    /* TODO: DONE Transform each author element into an object with 2 properties:
         One for the author's name, and one for the total number of words across
         the matching articles written by the specified author. */
     return Article.allAuthors().map(function(author) {
@@ -108,7 +109,21 @@
         // })
         // .map(...) // use .map to return the author's word count for each article's body (hint: regexp!).
         // .reduce(...) // squash this array of numbers into one big number!
+        name: author,
+        numWords: Article.allArticles.filter(function(curArticle) {
+          if (curArticle.author === author) {
+            return true;
+          } else { return false; }
+        })
+        .map(function(authorArticles) {
+          return authorArticles.body.match(/\w+/g).length;
+        })
+        .reduce(function(acc, curr) {
+          return acc + curr;
+        }, 0)
       };
     });
   };
+  module.Article = Article;
+
 })(window);
