@@ -69,7 +69,7 @@
       all words in all articles. */
   Article.numWordsAll = function() {
     return Article.allArticles.map(function(article) {
-      // return article.body.split(' ').length();
+      // return article.body.split(' ').length(); didnt actually need to do this
         //DONE: Grab the word count from each article body.
       return article.body.match(/\w+/g).length;
     })
@@ -82,8 +82,16 @@
   /* TODO: Chain together a `map` and a `reduce` call to
             produce an array of *unique* author names. */
   Article.allAuthors = function() {
-    //return       TODO: map our collection
-      //return    TODO: return just the author names
+    var uniqueAuthors = [];
+    return Article.allAuthors.map(function(article){//TODO: map our collection
+      return article.author;  // TODO: return just the author names
+    }).reduce(function(acc, curr){
+      if(!acc.includes(curr)){
+        acc.push(curr);
+      }
+      return acc ;
+    }, uniqueAuthors);
+
 
     /* TODO: For our `reduce` that we'll chain here -- since we are trying to
         return an array, we'll need to specify an accumulator type...
