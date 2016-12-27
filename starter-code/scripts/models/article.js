@@ -69,12 +69,14 @@
       all words in all articles. */
   Article.numWordsAll = function() {
     return Article.allArticles.map(function(article) {
+      // return article.body.split(' ').length();
         //DONE: Grab the word count from each article body.
       return article.body.match(/\w+/g).length;
     })
     // TODO: complete this reduce to get a grand total word count
-    .reduce(function() {
-    });
+    .reduce(function(acc, curr) {
+      return acc + curr;
+    }, 0);
   };
 
   /* TODO: Chain together a `map` and a `reduce` call to
