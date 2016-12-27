@@ -72,8 +72,9 @@
       return article.body.match(/\w+/g).length;
     })
     // TODO: complete this reduce to get a grand total word count
-    .reduce(function() {
-    });
+    .reduce(function(acc, curr) {
+      return acc + curr;
+    }, 0);
   };
 
   /* TODO: Chain together a `map` and a `reduce` call to
