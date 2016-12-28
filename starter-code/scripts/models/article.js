@@ -37,7 +37,7 @@
     if (localStorage.hackerIpsum) {
       $.ajax({
         type: 'HEAD',
-        url: '/data/hackerIpsum.json',
+        url: 'data/hackerIpsum.json',
         success: function(data, message, xhr) {
           var eTag = xhr.getResponseHeader('eTag');
           if (!localStorage.eTag || eTag !== localStorage.eTag) {
@@ -80,7 +80,7 @@
   /* TODO: Chain together a `map` and a `reduce` call to
             produce an array of *unique* author names. */
   Article.allAuthors = function() {
-    return Article.author.map(function(article) {
+    return Article.allArticles.map(function(article) {
       return article.author;
     })
     .reduce(function(uniqueAuthors, author){
@@ -96,14 +96,20 @@
         One for the author's name, and one for the total number of words across
         the matching articles written by the specified author. */
     return Article.allAuthors().map(function(author) {
+      console.log(author);
       return {
-        // name:
-        // numWords: someCollection.filter(function(curArticle) {
-        //  what do we return here to check for matching authors?
-        // })
-        // .map(...) // use .map to return the author's word count for each article's body (hint: regexp!).
-        // .reduce(...) // squash this array of numbers into one big number!
+        name: author,
+        numWords: Article.allArticles.filter(function(curArticle) {
+          if (author === curArticle.author) {return true;}
+        })
+        .map(function(curArticle) {
+          return curArticle.body.match(/\w+/g).length;
+        }) // .map(...) // use .map to return the author's word count for each article's body (hint: regexp!).
+        .reduce(function(acc, cur) {
+          return acc + cur;
+        }, 0) // .reduce(...) // squash this array of numbers into one big number!
       };
     });
   };
+  module.Article = Article;
 })(window);
