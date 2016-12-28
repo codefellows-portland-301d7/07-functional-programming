@@ -83,7 +83,7 @@
             produce an array of *unique* author names. */
   Article.allAuthors = function() {
     var uniqueAuthors = [];
-    return Article.allAuthors.map(function(article){//TODO: map our collection
+    return Article.allArticles.map(function(article){//TODO: map our collection
       return article.author;  // TODO: return just the author names
     }).reduce(function(acc, curr){
       if(!acc.includes(curr)){
@@ -106,18 +106,11 @@
       var authorObj = {};
       return {
         name: author,
-        numWords: Article.allArticles.filter(function(curArticle) {
-        //  what do we return here to check for matching authors?
-          if (article.author === author) {
-            return curArticle;
-          }
-        })
-        // .map(...) // use .map to return the author's word count for each article's body (hint: regexp!).
-        .map(function(article){
+        numWords: Article.allArticles.filter(function(article){
+          return article.author === author;
+        }).map(function(article){
           return article.body.match(/\w+/g).length;
-        })
-        // .reduce(...) // squash this array of numbers into one big number!
-        .reduce(function(acc, curr){
+        }).reduce(function(acc, curr){
           return acc + curr;
         }, 0)
       };
