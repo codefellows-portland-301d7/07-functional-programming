@@ -84,7 +84,7 @@
     //return       TODO: map our collection
     return Article.allArticles.map(function(author) {
         //return    TODO: return just the author names
-      return this.author;
+      return author.author;
     })
         /* TODO: For our `reduce` that we'll chain here -- since we are trying to
         return an array, we'll need to specify an accumulator type...
@@ -105,7 +105,7 @@
       return {name: author, authorWords:
         Article.allArticles.filter(function(element) {
         //  what do we return here to check for matching authors?
-          return author === element.author;
+          return element.author === author;
         })
         // .map(...) // use .map to return the author's word count for each article's body (hint: regexp!).
         .map(function(article) {
@@ -113,10 +113,12 @@
         })
         // .reduce(...) // squash this array of numbers into one big number!
         .reduce(function (e, f) {
+          console.log(e);
           return e + f;
         })
       };
     });
   };
+  Article.fetchAll();
   module.Article = Article;
 })(window);
